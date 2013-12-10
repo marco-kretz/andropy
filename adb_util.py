@@ -69,13 +69,11 @@ class ADBInterface():
                 build_props[prop[0]] = prop[1]
         return build_props
 
-
     def reboot(self, option):
         if option == "system":
             subprocess.call([ADB_EXE, "reboot"])
         elif option in ("recovery", "bootloader"):
             subprocess.call([ADB_EXE, "reboot", option])
-
 
     def check_output(self, out):
         """
@@ -84,11 +82,20 @@ class ADBInterface():
         if out == "error: device not found":
             sys.exit("Error connecting to device!")
 
-
     def __exit__(self, type, value, traceback):
         subprocess.call([ADB_EXE, "kill-server"])
 
 
-with ADBInterface() as adbi:
-    bp = adbi.get_build_props()
-    print(bp['net.bt.name'])
+def example():
+    print("# Welcome to AndroPy #")
+    print("----------------------")
+    with ADBInterface() as ai:
+        print("Number of devices detected:", len(ai.get_devices()))
+        print("Number of your downloaded apps:", len(ai.exec_shell_cmd("ls /data/app")))
+        bps = ai.get_build_props()
+        print("Your phone's CPU:", bps['ro.device.cpu'])
+        print("Your phone's model:", bps['ro.product.manufacturer'], bps['ro.product.device'])
+
+
+if __name__ == '__main__':
+    example()
