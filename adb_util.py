@@ -64,7 +64,7 @@ class ADBInterface():
                                       universal_newlines=True)
         self.check_output(out)
         for line in out.split('\n'):
-            if line == "":
+            if line == '':
                 continue
             prop = line.split('=')
             if not prop[0].startswith('#'):
@@ -76,6 +76,8 @@ class ADBInterface():
             subprocess.call([ADB_EXE, "reboot"])
         elif option in ("recovery", "bootloader"):
             subprocess.call([ADB_EXE, "reboot", option])
+        else:
+            print("Invalid reboot-option!")
 
     def check_output(self, out):
         """
