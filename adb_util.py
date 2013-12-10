@@ -48,6 +48,8 @@ class ADBInterface():
                                       universal_newlines=True)
         self.check_output(out)
         for line in out.split('\n'):
+            if line == '':
+                continue
             response.append(line)
         return response
 
