@@ -30,7 +30,7 @@ class Installer():
             if self.adb:
                 urll.urlretrieve(adb_dl, self.homedir+"/.andropy/bin/adb")
             if self.fastboot:
-                urll.urlretrieve(fbd_l, self.homedir+"/.andropy/bin/fastboot")
+                urll.urlretrieve(fb_dl, self.homedir+"/.andropy/bin/fastboot")
         except OSError:
             sys.exit("Folder creation failed!")
 
